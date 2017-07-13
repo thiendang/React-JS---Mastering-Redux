@@ -1,17 +1,39 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var path = require('path');
-var webpack = require('webpack');
-var bootstrapEntryPoints = require('./webpack.bootstrap.config.js')
-var isProd = process.env.NODE_ENV === 'production';
-var cssDev = ['style-loader', 'css-loader', 'sass-loader'];
-var cssProd = ExtractTextPlugin.extract({
-  fallback: 'style-loader',
-  use: ['css-loader', 'sass-loader'],
-  publicPath: '/dist'
-}) 
-var cssConfig = isProd ? cssProd : cssDev;
-var bootstrapConfig =  isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const bootstrapEntryPoints = require('./webpack.bootstrap.config.js')
+const isProd = process.env.NODE_ENV === 'production';
+const cssDev = [
+	'style-loader',
+	'css-loader?sourceMap',
+	'sass-loader',
+	{
+		loader: 'sass-resources-loader',
+		options: {
+			// Provide path to the file with resources
+			resources: [
+                './src/resources.scss'
+            ],
+		},
+	}];
+const cssProd = ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: ['css-loader','sass-loader', {
+		loader: 'sass-resources-loader',
+		options: {
+			// Provide path to the file with resources
+			resources: [
+				'./src/resources.scss'
+			],
+		},
+	}],
+    publicPath: '/dist'
+})
+const cssConfig = isProd ? cssProd : cssDev;
+const bootstrapConfig =  isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
 module.exports = {
   entry: {
     app: './src/app.js',
@@ -73,6 +95,9 @@ module.exports = {
       allChunks: true
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new PurifyCSSPlugin({
+      paths: glob.sync(path.join(__dirname, 'src/*.html')),
+    })
   ]
 };
