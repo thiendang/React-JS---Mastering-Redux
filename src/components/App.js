@@ -7,7 +7,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       newDate: '',
-      birthday: '1995-10-31'
+      birthday: '1995-10-31',
+      showStats: false
     }
   }
   getDate = (e) => {
@@ -15,7 +16,10 @@ export default class App extends Component {
   }
   changeBirthday = () => {
     console.log(this.state);
-    this.setState({newDate: this.state.birthday})
+    this.setState({
+      birthday: this.state.newDate,
+      showStats: true
+    })
   }
   render(){
     return(
@@ -23,10 +27,15 @@ export default class App extends Component {
         <Form inline>
           <h2 className="test">Input your birthday</h2>
           <FormControl type="date" onChange={this.getDate}></FormControl>
-          <Button onClick={this.changeBirthday}>Submit</Button>
-          {/* <p><img className="img-responsive" src={require('../images/img_twitter-bootstrap.png')} /></p> */}
+          <Button onClick={this.changeBirthday} className="btn btn-success">Submit</Button>
         </Form>
-        <AgeStats date={this.state.birthday}/>
+        {
+          this.state.showStats
+          ?
+          <div className="age-stats"><AgeStats date={this.state.birthday}/></div>
+          :
+          <div></div>
+        }
       </div>
     )
   }

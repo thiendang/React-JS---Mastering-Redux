@@ -18,6 +18,7 @@ export default class AgeStats extends Component {
     return(
       <div>
         <h1>{this.props.date}</h1>
+        <img className="img-responsive" src={require('../images/cg.gif')} />
         <h2>Congrats on {this.timeSince(this.props.date)}!!!</h2>
       </div>
     )
