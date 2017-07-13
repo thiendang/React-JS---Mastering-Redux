@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';
+import AgeStats from './AgeStats';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class App extends Component {
           <Button onClick={this.changeBirthday}>Submit</Button>
           {/* <p><img className="img-responsive" src={require('../images/img_twitter-bootstrap.png')} /></p> */}
         </Form>
+        <AgeStats date={this.state.birthday}/>
       </div>
     )
   }
