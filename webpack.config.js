@@ -9,7 +9,7 @@ var cssProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
   use: ['css-loader', 'sass-loader'],
   publicPath: '/dist'
-})
+}) 
 var cssConfig = isProd ? cssProd : cssDev;
 var bootstrapConfig =  isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
 module.exports = {
