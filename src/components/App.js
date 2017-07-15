@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import CharacterList from './CharacterList';
+import HeroList from './HeroList';
 
 export default class App extends Component {
   constructor(props) {
@@ -11,8 +12,13 @@ export default class App extends Component {
   render(){
     return(
       <div className="App">
-        <h3>SuperSquad</h3>
-        <CharacterList/>
+        <h2>SuperSquad</h2>
+        <div className="col-md-6">
+          <CharacterList/>
+        </div>
+        <div className="col-md-6">
+          <HeroList/>
+        </div>
       </div>
     )
   }
