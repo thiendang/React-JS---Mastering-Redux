@@ -10,7 +10,7 @@ export default class App extends Component {
   }
   render(){
     return(
-      <div>
+      <div className="App">
         <h3>SuperSquad</h3>
         <CharacterList/>
       </div>
