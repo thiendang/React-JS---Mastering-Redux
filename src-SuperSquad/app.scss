@@ -1,0 +1,19 @@
+@import './bootstrap/customizations.scss';
+
+body {
+  background-image: url('assets/background.jpg');
+  height: 100%;
+
+}
+
+.App {
+  padding: 5%;
+  text-align: center;
+}
+.right-button {
+  cursor: pointer;
+  float: right;
+}
+.list-item {
+  display: inline-block;
+}
